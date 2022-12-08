@@ -1,4 +1,5 @@
 const axios = require("axios")
+const {Dog, Temperament} = require("../../db")
 
 
 const getApiDogs = async () =>{
@@ -29,7 +30,15 @@ const getDbInfo = async () =>{
     })
 }
 
+const getAllDogs = async () =>{
+    const API = await getApiDogs();
+    const DB = await getDbInfo();
+    const infoTotal = API.concat(DB)
+    return infoTotal;
+}
 
 module.exports = {
-    getApiDogs
+    getApiDogs,
+    getDbInfo,
+    getAllDogs
 }
