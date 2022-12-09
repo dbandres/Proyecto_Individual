@@ -22,18 +22,7 @@ router.get("/", async (req, res, next) =>{
     }
 })
 
-router.post("/", async (req, res, next)=>{
-    const {name,height,weight,life,temperament} = req.body
-    try {
-        const newDog = await Dog.create({name,height,weight,life,temperament})
-        
-        res.send("Ha sido creado")
-    } catch (error) {
-        next(error)
-    }
-})
-
-router.use("/temperaments", async (req, res, next)=>{
+router.get("/temperaments", async (req, res, next)=>{
     const dogApi = await getApiDogs();
     let temperApi = dogApi.map((dog) => dog.temperament)
     //console.log(temperApi)
@@ -48,5 +37,37 @@ router.use("/temperaments", async (req, res, next)=>{
     const allTemperaments = await Temperament.findAll()
     res.send(allTemperaments)
 })
+
+router.get("/:id", async (req, res, next)=>{
+    const {id} = req.params
+    let dogs = await getAllDogs()
+    try {
+        if(id){
+            //ver datos ingresados
+            let dogId = await dogs.filter((dog) => dog.id == id)
+            console.log(dogId)
+            res.status(200).send(dogId)
+        }
+    } catch (error) {
+        next(error)
+    }
+})
+
+router.post("/", async (req, res, next)=>{
+    const {name,height,weight,life,temperament} = req.body
+    try {
+        const newDog = await Dog.create({name,height,weight,life})  
+        let temperamentDb = await Temperament.findAll({
+            where:{
+                name: temperament
+            }
+        })
+        newDog.addTemperament(temperamentDb)
+        res.send("Ha sido creado")
+    } catch (error) {
+        next(error)
+    }
+})
+
 
 module.exports = router;
