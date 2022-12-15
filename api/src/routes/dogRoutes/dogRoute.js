@@ -63,9 +63,9 @@ router.get("/:id", async (req, res, next)=>{
 })
 
 router.post("/", async (req, res, next)=>{
-    const {name,height,weight,life,temperament} = req.body
+    const {name,height,weight,life,temperament, image} = req.body
     try {
-        const newDog = await Dog.create({name,height,weight,life})  
+        const newDog = await Dog.create({name,height,weight,life, image})  
         let temperamentDb = await Temperament.findAll({
             where:{
                 name: temperament
