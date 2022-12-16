@@ -1,6 +1,7 @@
 const {getApiDogs, getAllDogs, getDbInfo} = require("../controllers/get")
 const { Router } = require('express');
 const {Dog, Temperament} = require("../../db")
+const axios = require("axios")
 
 const router = Router();
 
@@ -9,17 +10,24 @@ router.get("/", async (req, res, next) =>{
     const nameDog = await getAllDogs();
     try {
         if(name){
-            let dogByName = await nameDog.filter((dog) => dog.name.toLowerCase().includes(name.toLowerCase()))
+            let namedoguii = await axios.get(`https://api.thedogapi.com/v1/breeds/search?q=${name}`)
+            res.send(namedoguii)
+            //let dogByName = await nameDog.filter(dog => dog.name.toLowerCase().includes(name.toLowerCase()))
             //console.log(dogByName)
-            dogByName.length ? res.send(dogByName) : res.status(404).send("Error, Name no existe")
+            //dogByName.length ? res.send(dogByName) : res.status(404).send("Error, Name no existe")
             
         }else{
-        let dogsTotal = await getAllDogs()
-        res.status(200).send(dogsTotal)
+        //let dogsTotal = await getAllDogs()
+        res.status(200).send(nameDog)
         }
     } catch (error) {
         next(error)
     }
+})
+
+router.get("/db", async (req, res, next)=>{
+    const db = await getDbInfo();
+    
 })
 
 router.get("/temperaments", async (req, res, next)=>{
@@ -71,8 +79,9 @@ router.post("/", async (req, res, next)=>{
                 name: temperament
             }
         })
+
         newDog.addTemperament(temperamentDb)
-        res.send("Ha sido creado")
+        res.send(newDog)
     } catch (error) {
         next(error)
     }
@@ -80,3 +89,6 @@ router.post("/", async (req, res, next)=>{
 
 
 module.exports = router;
+
+
+

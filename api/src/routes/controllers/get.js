@@ -22,7 +22,7 @@ const getApiDogs = async () =>{
 }
 
 const getDbInfo = async () =>{
-    return await Dog.findAll({
+    let dogdb = await Dog.findAll({
         include:{
             model: Temperament,
             attributes: ['name'],
@@ -31,6 +31,8 @@ const getDbInfo = async () =>{
             }
         }
     })
+    return dogdb
+    console.log(dogdb)
 }
 
 const getAllDogs = async () =>{
