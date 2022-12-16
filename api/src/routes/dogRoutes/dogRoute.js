@@ -25,11 +25,6 @@ router.get("/", async (req, res, next) =>{
     }
 })
 
-router.get("/db", async (req, res, next)=>{
-    const db = await getDbInfo();
-    
-})
-
 router.get("/temperaments", async (req, res, next)=>{
     try {
         const dogApi = await getApiDogs();
