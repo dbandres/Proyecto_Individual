@@ -8,7 +8,7 @@ export default function LandingPage(){
     function entrar(){
          dispatch(getDogs())
     }
-
+    
     return(
         <div>
             <h1>Landing!</h1>
