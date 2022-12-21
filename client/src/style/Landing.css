@@ -1,0 +1,43 @@
+.container_landing{
+    width: 100%;
+    height: 100vh;
+    background-color: yellow;
+}
+
+.title_landing{
+    text-align: center;
+    padding: 2rem;
+}
+
+.img_landing{
+    width: 400px;
+    height: 400px;
+    display: block;
+    margin: 2rem auto;
+
+}
+
+button{
+    width: 100%;
+    height: 100%;
+    border: none;
+    font-size: larger;
+    font-weight: bolder;
+    cursor: pointer;
+    background-color: yellow;
+    border-bottom: 2px solid black;
+    border-top: 2px solid black;
+    border-radius: 10px;
+}
+
+.btn_landing{
+    width: 150px;
+    height: 30px;
+    display: block;
+    margin: 0 auto;
+}
+
+button:hover{
+    color: white;
+    background-color: black;
+}

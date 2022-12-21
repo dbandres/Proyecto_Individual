@@ -1,0 +1,28 @@
+.paginado{
+    width: 80%;
+    margin: 0 auto;
+}
+
+.pag_ul{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0.5rem;
+}
+
+.li_pag{
+    background-color: black;
+    border-radius: 10%;
+    margin: .5rem;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    color: yellow;
+}
+
+.li_pag:hover{
+    background-color: white;
+    color: black !important;
+}
