@@ -1,9 +1,9 @@
-import { GET_DOGS, FILTER_CREATE } from "../actions";
+import { GET_DOGS, FILTER_CREATE, GET_TEMPERAMENT } from "../actions";
 
- 
 const initialState = {
     dogs : [],
-    copyDogs : []
+    copyDogs : [],
+    temperaments: []
 }
 
 function rootReducer( state = initialState, action){
@@ -12,14 +12,20 @@ function rootReducer( state = initialState, action){
             return{
                 ...state,
                 dogs: state.dogs.concat(action.payload),
-                copyDogs: action.payload
+                copyDogs: action.payload,
+                
             }
         case FILTER_CREATE:
             const allDogs = state.copyDogs
-            const createdFilter = action.payload === "api" ? allDogs.filter((dog) => dog.id <= 300) : allDogs.filter((dog) => dog.id.length > 3)
+            const createdFilter = action.payload === "api" ? allDogs.filter((dog) => dog.id <= 300) : allDogs.filter((dog) => dog.id.length >= 4)
             return{
                 ...state,
-                dogs: action.payload === "all" ? state.dogs : createdFilter
+                dogs: action.payload === "all" ? allDogs : createdFilter
+            }
+        case GET_TEMPERAMENT:
+            return{
+                ...state,
+                temperaments: action.payload
             }
             default:
                 return state;

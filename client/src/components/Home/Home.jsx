@@ -1,4 +1,4 @@
-
+import "../../style/Home.css"
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getDogs } from "../../actions";
@@ -31,13 +31,16 @@ export default function Home (){
 
             </Paginado>
             <h1>Proyecto Individual DOGS</h1>
+            <div className="container">
             {
                 dogsActual && dogsActual.map((dog)=>{
                     return(
-                        <Card name={dog.name} image={dog.image} temperament={dog.temperament} weight={dog.weight} key={dog.id}></Card>
+                            <Card name={dog.name} image={dog.image} temperament={dog.temperament} weight={dog.weight} key={dog.id}></Card>
+                        
                     )
                 })
             }
+            </div>
         </div>
     )
 }

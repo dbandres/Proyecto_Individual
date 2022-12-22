@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { getDogs } from "../../actions";
+import { getDogs, getTemperament } from "../../actions";
 import { useDispatch } from "react-redux";
 import "../../style/Landing.css"
 import img from "../../style/assets/dog.png"
@@ -9,6 +9,7 @@ export default function LandingPage(){
 
     function entrar(){
         dispatch(getDogs())
+        dispatch(getTemperament())
     }
     
     return(
