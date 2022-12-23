@@ -31,8 +31,16 @@ const getDbInfo = async () =>{
             }
         }
     })
-    return dogdb
-    console.log(dogdb)
+    return dogdb.map(d=>({
+            id: d.id,
+            name: d.name,
+            weight: d.weight,
+            height: d.height,
+            life: d.life,
+            temperament: d.temperaments.map(t => t.name).join(", "),
+            image: d.image
+    }))
+    
 }
 
 const getAllDogs = async () =>{

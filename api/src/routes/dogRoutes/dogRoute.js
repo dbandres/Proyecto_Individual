@@ -25,6 +25,22 @@ router.get("/", async (req, res, next) =>{
     }
 })
 
+/*
+router.get('/', async (req, res, next) =>{
+    let tempUrl = await axios.get('https://api.thedogapi.com/v1/breeds')
+    let temperaments = []
+    tempUrl.data.forEach(e => {
+        if (e.temperament) temperaments = [...temperaments, ...e.temperament.split(', ')]
+    })
+    let arrayTemperaments = temperaments.filter((item,index)=>{
+        return temperaments.indexOf(item) === index;
+      })
+    arrayTemperaments.forEach(t => {
+        Temperament.findOrCreate
+*/
+
+
+
 router.get("/temperaments", async (req, res, next)=>{
     try {
         const dogApi = await getApiDogs();
