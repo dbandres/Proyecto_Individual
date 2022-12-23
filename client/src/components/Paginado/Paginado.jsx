@@ -13,7 +13,7 @@ export default function Paginado({dogsPorPage, allDogs, pagination}){
                 {
                     numberPage && numberPage.map(n=>{
                         return(
-                            <li className="li_pag"><a onClick={() => pagination(n)}>{n}</a></li>
+                            <li key={n} className="li_pag"><a onClick={() => pagination(n)}>{n}</a></li>
                         )
                     })
                 }
