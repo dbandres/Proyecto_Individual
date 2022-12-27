@@ -4,6 +4,7 @@ export const FILTER_CREATE = "FILTER_CREATE"
 export const GET_TEMPERAMENT = "GET_TEMPERAMENT"
 export const ORDER_BY_NAME = "ORDER_BY_NAME"
 export const FILTER_BY_TEMP = "FILTER_BY_TEMP"
+export const ORDER_BY_WHEIGHT = "ORDER_BY_WHEIGHT"
 
 export function getDogs(){
     return async function (dispatch){
@@ -41,6 +42,13 @@ export function orderByName(payload){
 export function filterByTemp(payload){
     return({
         type: FILTER_BY_TEMP,
+        payload
+    })
+}
+
+export function oderByWeight(payload){
+    return({
+        type: ORDER_BY_WHEIGHT,
         payload
     })
 }

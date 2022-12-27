@@ -1,4 +1,4 @@
-import { GET_DOGS, FILTER_CREATE, GET_TEMPERAMENT, ORDER_BY_NAME, FILTER_BY_TEMP } from "../actions";
+import { GET_DOGS, FILTER_CREATE, GET_TEMPERAMENT, ORDER_BY_NAME, FILTER_BY_TEMP, ORDER_BY_WHEIGHT } from "../actions";
 
 const initialState = {
     dogs : [],
@@ -58,7 +58,33 @@ function rootReducer( state = initialState, action){
                 ...state,
                 dogs: arrayTemp
             }
-
+        case ORDER_BY_WHEIGHT:
+            //let dogsAll = state.dogs
+            let weigthSort = action.payload === "asc" ? 
+                state.copyDogs.sort((a,b) =>{
+                    if(parseInt(a.weight) > parseInt(b.weight)){
+                        return 1
+                    }else if(parseInt(b.weight) > parseInt(a.weight)){
+                        return -1
+                    }
+                    
+                    return 0
+                }):
+                state.copyDogs.sort((a,b) =>{
+                    if(parseInt(a.weight) > parseInt(b.weight)){
+                        return -1
+                    }else if(parseInt(b.weight) > parseInt(a.weight)){
+                        return 1
+                    }
+                    
+                    return 0
+                })
+                console.log(weigthSort)
+                
+                return({
+                    ...state,
+                    dogs: weigthSort
+                })
             default:
                 return state;
     }
