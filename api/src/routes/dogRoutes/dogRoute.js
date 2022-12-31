@@ -24,6 +24,7 @@ router.get("/", async (req, res, next) =>{
             // dogByName.length ? res.send(dogByName) : res.status(404).send("Error, Name no existe")
             
         }else{
+        
         //let dogsTotal = await getAllDogs()
         res.status(200).send(nameDog)
         }

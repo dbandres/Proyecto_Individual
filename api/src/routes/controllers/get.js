@@ -4,7 +4,8 @@ const {Dog, Temperament} = require("../../db")
 
 const getApiDogs = async () =>{
     const URL = await axios.get("https://api.thedogapi.com/v1/breeds");
-    const UrlResponse = await URL.data.map((dog) => {
+    let filtered = URL.data.filter((dog) =>  dog.weight.metric !== ("NaN") && dog.temperament)
+    const UrlResponse = await filtered.map((dog) => {
         return{
             id: dog.id,
             name: dog.name,
