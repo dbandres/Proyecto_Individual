@@ -7,6 +7,8 @@ export default function Paginado({dogsPorPage, allDogs, pagination}){
         numberPage.push(i);
     }
 
+    console.log(numberPage)
+
     return(
         <nav className="paginado">
             <ul className="pag_ul">

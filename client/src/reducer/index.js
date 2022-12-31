@@ -1,4 +1,4 @@
-import { GET_DOGS, FILTER_CREATE, GET_TEMPERAMENT, ORDER_BY_NAME, FILTER_BY_TEMP, ORDER_BY_WHEIGHT } from "../actions";
+import { GET_DOGS, FILTER_CREATE, GET_TEMPERAMENT, ORDER_BY_NAME, FILTER_BY_TEMP, ORDER_BY_WHEIGHT, POST_CREATE } from "../actions";
 
 const initialState = {
     dogs : [],
@@ -9,6 +9,7 @@ const initialState = {
 function rootReducer( state = initialState, action){
     switch(action.type){
         case GET_DOGS:
+            
             return{
                 ...state,
                 dogs: state.dogs.concat(action.payload),
@@ -46,7 +47,7 @@ function rootReducer( state = initialState, action){
                 })
                 return{
                     ...state,
-                    dogs: arraySort
+                    dogs: action.payload === "all" ? state.copyDogs : arraySort
                 }
         case FILTER_BY_TEMP :
             const alDogs = state.copyDogs
@@ -54,14 +55,15 @@ function rootReducer( state = initialState, action){
                 if(!dog.temperament) return alDogs;
                 return dog.temperament.includes(action.payload)
             })
+            
             return{
                 ...state,
-                dogs: arrayTemp
+                dogs: action.payload === "all" ? state.copyDogs : arrayTemp
             }
         case ORDER_BY_WHEIGHT:
             //let dogsAll = state.dogs
             let weigthSort = action.payload === "asc" ? 
-                state.copyDogs.sort((a,b) =>{
+                state.dogs.sort((a,b) =>{
                     if(parseInt(a.weight) > parseInt(b.weight)){
                         return 1
                     }else if(parseInt(b.weight) > parseInt(a.weight)){
@@ -70,7 +72,7 @@ function rootReducer( state = initialState, action){
                     
                     return 0
                 }):
-                state.copyDogs.sort((a,b) =>{
+                state.dogs.sort((a,b) =>{
                     if(parseInt(a.weight) > parseInt(b.weight)){
                         return -1
                     }else if(parseInt(b.weight) > parseInt(a.weight)){
@@ -79,12 +81,16 @@ function rootReducer( state = initialState, action){
                     
                     return 0
                 })
-                console.log(weigthSort)
+                
                 
                 return({
                     ...state,
-                    dogs: weigthSort
+                    dogs: action.payload === "all" ? state.copyDogs : weigthSort
                 })
+        case POST_CREATE:
+            return{
+                ...state
+            }
             default:
                 return state;
     }

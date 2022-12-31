@@ -4,11 +4,12 @@ import { useDispatch, useSelector } from "react-redux"
 
 
 
+
 export default function NavBar({setPageNumber}){
     
     const dispatch = useDispatch()
     const allTemperaments = useSelector((state) => state.temperaments)
-
+    //const allDogs = useSelector((state)=> state.dogs)
 
     let orderTemp = allTemperaments.sort((a,b)=>{
         if(a.name > b.name){

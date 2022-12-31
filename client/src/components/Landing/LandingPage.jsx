@@ -16,7 +16,7 @@ export default function LandingPage(){
             dispatch(getDogs())
             dispatch(getTemperament())
         }
-    }, [])// eslint-disable-line react-hooks/exhaustive-deps
+    },[])// eslint-disable-line react-hooks/exhaustive-deps
     
 
     return(

@@ -22,8 +22,12 @@ export default function Home (){
             dispatch(getDogs())
             dispatch(getTemperament())
         }
-    }, [])// eslint-disable-line react-hooks/exhaustive-deps
+    },[])// eslint-disable-line react-hooks/exhaustive-deps
 
+
+    // let sinTemp = allDogs.filter(dog => dog.temperament)
+    // console.log(sinTemp.length)
+    // console.log(allDogs.length)
 
     const [orden, setOrden] = useState("")
     const [query, setQuery] = useState("")
@@ -60,7 +64,7 @@ export default function Home (){
         fetchDogs()
         //setDogsPorPage()
         setPageNumber()
-        console.log(dataDogs)
+        //console.log(dataDogs)
     }, [query])
 
     const setPageNumber = () =>{
@@ -72,7 +76,7 @@ export default function Home (){
             <NavBar setPageNumber={setPageNumber}/>
             <button><Link to="/create">Crear una nueva Raza</Link></button>
             <Paginado dogsPorPage = {dogsPorPage}
-            allDogs = {!query ? allDogs.length : dataDogs.length}
+            allDogs = {query ? dataDogs.length : allDogs.length}
             pagination = {pagination}
             >
 
@@ -82,11 +86,11 @@ export default function Home (){
             <input type="text" placeholder="Buscar" onChange={(e) => setQuery(e.target.value)}/>
             <h4>Orden Alfabetico</h4>
             <select onChange={(e)=>handleSort(e)}>
-                <option value="">Seleccione una opcion</option>
+                <option value="all">Seleccione una opcion</option>
                 <option value="asc">Ascendente</option>
                 <option value="desc">Descendente</option>
             </select>
-            <h4>Peso..</h4>
+            <h4>Peso..</h4> 
             <select onChange={(e) => handleSortWeight(e)}>
                 <option value="all">Seleccione una opcion</option>
                 <option value="asc">Peso Ascendente</option>

@@ -5,6 +5,7 @@ export const GET_TEMPERAMENT = "GET_TEMPERAMENT"
 export const ORDER_BY_NAME = "ORDER_BY_NAME"
 export const FILTER_BY_TEMP = "FILTER_BY_TEMP"
 export const ORDER_BY_WHEIGHT = "ORDER_BY_WHEIGHT"
+export const POST_CREATE = "POST_CREATE"
 
 export function getDogs(){
     return async function (dispatch){
@@ -51,4 +52,11 @@ export function oderByWeight(payload){
         type: ORDER_BY_WHEIGHT,
         payload
     })
+}
+
+export function createDog(payload){
+    return async function(){
+        const res = await axios.post("http://localhost:3001/dogs", payload)
+        return res
+    }
 }
