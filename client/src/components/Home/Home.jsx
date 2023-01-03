@@ -74,10 +74,11 @@ export default function Home (){
     return(
         <div>
             <NavBar setPageNumber={setPageNumber}/>
-            <button><Link to="/create">Crear una nueva Raza</Link></button>
+            <button className="btn_home"><Link to="/create">Crear una nueva Raza</Link></button>
             <Paginado dogsPorPage = {dogsPorPage}
             allDogs = {query ? dataDogs.length : allDogs.length}
             pagination = {pagination}
+            actualPage = {actualPage}
             >
 
             </Paginado>
@@ -101,13 +102,17 @@ export default function Home (){
             {
                 query ? dogsName.map((dog)=>{
                     return(
-                        <Card name={dog.name} image={dog.image} temperament={dog.temperament} weight={dog.weight} key={dog.id}></Card>
+                        <Link to={"/dog-detail/"+dog.id}>
+                            <Card name={dog.name} image={dog.image} temperament={dog.temperament} weight={dog.weight} key={dog.id}></Card>
+                        </Link>
                     
                 )
                 }):
                 dogsActual && dogsActual.map((dog)=>{
                     return(
+                        <Link to={"/dog-detail/"+dog.id}>
                             <Card name={dog.name} image={dog.image} temperament={dog.temperament} weight={dog.weight} key={dog.id}></Card>
+                        </Link>
                         
                     )
                 })

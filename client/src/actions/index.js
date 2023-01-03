@@ -6,6 +6,7 @@ export const ORDER_BY_NAME = "ORDER_BY_NAME"
 export const FILTER_BY_TEMP = "FILTER_BY_TEMP"
 export const ORDER_BY_WHEIGHT = "ORDER_BY_WHEIGHT"
 export const POST_CREATE = "POST_CREATE"
+export const GET_DETAILS = "GET_DETAILS"
 
 export function getDogs(){
     return async function (dispatch){
@@ -58,5 +59,15 @@ export function createDog(payload){
     return async function(){
         const res = await axios.post("http://localhost:3001/dogs", payload)
         return res
+    }
+}
+
+export function dogDetail(id){
+    return async function(dispatch){
+        let res = await axios.get(`http://localhost:3001/dogs/`+ id)
+        return dispatch({
+            type: GET_DETAILS,
+            payload: res.data
+        })
     }
 }

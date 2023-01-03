@@ -1,9 +1,10 @@
-import { GET_DOGS, FILTER_CREATE, GET_TEMPERAMENT, ORDER_BY_NAME, FILTER_BY_TEMP, ORDER_BY_WHEIGHT, POST_CREATE } from "../actions";
+import { GET_DOGS, FILTER_CREATE, GET_TEMPERAMENT, ORDER_BY_NAME, FILTER_BY_TEMP, ORDER_BY_WHEIGHT, POST_CREATE, GET_DETAILS } from "../actions";
 
 const initialState = {
     dogs : [],
     copyDogs : [],
-    temperaments: []
+    temperaments: [],
+    details: []
 }
 
 function rootReducer( state = initialState, action){
@@ -81,8 +82,6 @@ function rootReducer( state = initialState, action){
                     
                     return 0
                 })
-                
-                
                 return({
                     ...state,
                     dogs: action.payload === "all" ? state.copyDogs : weigthSort
@@ -90,6 +89,11 @@ function rootReducer( state = initialState, action){
         case POST_CREATE:
             return{
                 ...state
+            }
+        case GET_DETAILS:
+            return{
+                ...state,
+                details: action.payload
             }
             default:
                 return state;

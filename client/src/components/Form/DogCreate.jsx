@@ -10,10 +10,22 @@ export default function DogCreate(){
     const history = useHistory()
     const temperaments = useSelector((state) => state.temperaments)
 
+    const [peso, setPeso] = useState({
+        pesoMin: "",
+        pesoMax: ""
+    })
+
+    function handleChangePeso(e){
+        setPeso({
+            ...peso,
+            [e.target.name] : e.target.value
+        })
+    }
+
     const [input, setInput] = useState({
         name : "",
         height : "",
-        weight : "",
+        weight : peso,
         life : "",
         temperament : [],
         image : ""
@@ -33,6 +45,13 @@ export default function DogCreate(){
         })
     }
 
+    function handleDelete(t){
+        setInput({
+            ...input,
+            temperament: input.temperament.filter(temp => temp !== t)
+        })
+    }
+
     function handleSubmit(e){
         e.preventDefault();
         dispatch(createDog(input))
@@ -45,20 +64,18 @@ export default function DogCreate(){
             temperament : [],
             image : ""
         })
-        //history.push("/home")
+        dispatch(getDogs())
+        history.push("/home")
     }
     console.log(input)
 
     useEffect(()=>{
         dispatch(getTemperament())
-        return () =>{
-            dispatch(getDogs())
-        }
-    }, [])
+    }, [])// eslint-disable-line react-hooks/exhaustive-deps
 
     return(
         <div>
-            <Link to="/home" onclick="location.reload()">Volver...</Link>
+            <Link to="/home">Volver...</Link>
             <h1>Crea tu propia Raza de Perro</h1>
             <form onSubmit={handleSubmit}>
                 <div>
@@ -79,13 +96,31 @@ export default function DogCreate(){
                     onChange={ (e)=>handleChange(e)}
                     />
                 </div>
-                <div>
+                {/* <div>
                     <label htmlFor="">Weight</label>
                     <input 
                     type="text" 
                     value={input.weight}
                     name="weight"
                     onChange={ (e)=>handleChange(e)}
+                    />
+                </div> */}
+                <div>
+                    <label htmlFor="">Weight Min</label>
+                    <input 
+                    type="text" 
+                    value={peso.pesoMin}
+                    name="pesoMin"
+                    onChange={ (e)=>handleChangePeso(e)}
+                    />
+                </div>
+                <div>
+                    <label htmlFor="">Weight Max</label>
+                    <input 
+                    type="text" 
+                    value={peso.pesoMax}
+                    name="pesoMax"
+                    onChange={ (e)=>handleChangePeso(e)}
                     />
                 </div>
                 <div>
@@ -119,11 +154,19 @@ export default function DogCreate(){
                         }
                     </select>
                     
-                    <p>{input.temperament.map(t => t + (" x, "))}</p>
-                    
                 </div>
                 <button type="submit" >Crear Raza</button>
             </form>
+            {
+                        input.temperament.map(t =>{
+                            return(
+                                <div>
+                                    <p>{t}</p>
+                                    <button onClick={()=> handleDelete(t)}>X</button>
+                                </div>
+                            )
+                        })
+            }
         </div>
     )
 

@@ -25,7 +25,7 @@ export default function LandingPage(){
             <img src={img} alt="img" className="img_landing"/>
             <div className="btn_landing">
             <Link to="/home">
-                <button>
+                <button className="bttn">
                     Entrar
                 </button>
             </Link>

@@ -1,6 +1,6 @@
 import "../../style/Paginado.css"
 
-export default function Paginado({dogsPorPage, allDogs, pagination}){
+export default function Paginado({dogsPorPage, allDogs, pagination, actualPage}){
     const numberPage = []
 
     for(let i = 1; i<=Math.ceil(allDogs/dogsPorPage); i++){
@@ -15,7 +15,9 @@ export default function Paginado({dogsPorPage, allDogs, pagination}){
                 {
                     numberPage && numberPage.map(n=>{
                         return(
-                            <li key={n} className="li_pag"><a onClick={() => pagination(n)}>{n}</a></li>
+                            <li key={n} className={'li_pag' + (actualPage === n ? ' active' : '')} onClick={() => pagination(n)}>
+                                <span className="pagspan">{n}</span>
+                            </li>
                         )
                     })
                 }
