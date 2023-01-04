@@ -1,0 +1,15 @@
+.detail_container{
+    width: 90%;
+    margin: 0 auto;
+}
+
+.div_detail{
+    margin: 2rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.div_detail img{
+    width: 400px;
+    height: 300px;
+}

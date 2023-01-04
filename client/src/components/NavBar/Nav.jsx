@@ -2,9 +2,6 @@ import "../../style/Nav.css"
 import { filterByTemp, filterCreated} from "../../actions"
 import { useDispatch, useSelector } from "react-redux"
 
-
-
-
 export default function NavBar({setPageNumber}){
     
     const dispatch = useDispatch()
@@ -53,8 +50,7 @@ export default function NavBar({setPageNumber}){
                         )
                     })
                 }
-            </select>
-            
+            </select>           
             </div>
         </div>
     )
