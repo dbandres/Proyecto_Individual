@@ -1,15 +1,37 @@
 .detail_container{
-    width: 90%;
+    width: 80%;
     margin: 0 auto;
 }
 
 .div_detail{
-    margin: 2rem;
-    display: flex;
-    flex-direction: column;
+    margin: 2rem auto;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    width: 1000px;
+    box-shadow: 5px 7px 7px 2px #979797;
+    border-radius: 10px;
+}
+
+.detail_name{
+    padding: 1rem;
+}
+
+.detail_temp{
+    margin-left: 1rem;
+    margin-top: 10rem;
+}
+
+.detail_name h1{
+    text-align: justify;
 }
 
 .div_detail img{
+    border-radius: 10px;
     width: 400px;
     height: 300px;
+}
+
+.detail_dog{
+    margin-top: 10rem;
+    margin-left: 5rem;
 }

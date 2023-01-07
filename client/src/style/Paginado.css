@@ -37,7 +37,7 @@
     margin: .3rem;
     background-color: transparent;
     border-radius: 0.5rem;
-    border-color: rgba(255, 251, 251, 0.453);
+    border-color: #d9b48d;
     box-shadow: inset 0 5px 10px rgba(0,0,0,.1), 0 2px 5px rgba(0,0,0,.5);
     cursor: pointer;
     list-style: none;
@@ -45,7 +45,7 @@
 
 .li_pag.active,
 .li_pag:hover {
-    background-color: rgb(0, 0, 0);
+    background-color: #d9b48d;
     transition: transform .4s;
     color: white;
 }

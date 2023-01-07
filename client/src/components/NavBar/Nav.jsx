@@ -34,23 +34,27 @@ export default function NavBar({setPageNumber}){
     return(
         <div className="constiner">
             <div className="nav">
-            <h4>Razas existentes..</h4>
-            <select onChange={(e) =>{handleFilterCreated(e)}}>
-                <option value="all">Todos</option>
-                <option value="api">Traidos desde la API</option>
-                <option value="db">Creados</option>
-            </select>
-            <h4>Temperamentos..</h4>
-            <select onChange={(e) => handleTemFilter(e)}>
-            <option value="">Seleccione una Opcion</option>
-                {
-                    filterNull && filterNull.map((temp) => {
-                        return(
-                           <option value={temp.name} key={temp.id}>{temp.name}</option>
-                        )
-                    })
-                }
-            </select>           
+                <h4>Razas existentes</h4>
+                    <select className="format" onChange={(e) =>{handleFilterCreated(e)}}>
+                        <option value="all">Todos</option>
+                        <option value="api">Traidos desde la API</option>
+                        <option value="db">Creados</option>
+                    </select>
+                <h4>Temperamentos</h4>
+                    <select className="format" onChange={(e) => handleTemFilter(e)}>
+                        <option value="">Seleccione una Opcion</option>
+                            {
+                                filterNull && filterNull.map((temp) => {
+                                    return(
+                                    <option value={temp.name} key={temp.id}>{temp.name}</option>
+                                    )
+                                })
+                            }
+                    </select>           
+            </div>
+            <div className="nav_title">
+                <h1>Dogs PI</h1>
+                <img src="https://cdn.dribbble.com/users/690037/screenshots/15169590/media/7c2471f1be68e6946ce0897c6afc33ef.jpg?compress=1&resize=400x300" alt="" />
             </div>
         </div>
     )

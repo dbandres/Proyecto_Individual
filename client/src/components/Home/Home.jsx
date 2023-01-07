@@ -74,29 +74,30 @@ export default function Home (){
     return(
         <div>
             <NavBar setPageNumber={setPageNumber}/>
-            <button className="btn_home"><Link to="/create">Crear una nueva Raza</Link></button>
-            <Paginado dogsPorPage = {dogsPorPage}
-            allDogs = {query ? dataDogs.length : allDogs.length}
-            pagination = {pagination}
-            actualPage = {actualPage}
-            >
-
-            </Paginado>
-            <h1>Proyecto Individual DOGS</h1>
+            <div className="crear_raza">
+                    <button className="btn_home"><Link to="/create">Crear una nueva Raza</Link></button>
+            </div>
             <div className="filter_container">
-            <input type="text" placeholder="Buscar" onChange={(e) => setQuery(e.target.value)}/>
-            <h4>Orden Alfabetico</h4>
-            <select onChange={(e)=>handleSort(e)}>
-                <option value="all">Seleccione una opcion</option>
-                <option value="asc">Ascendente</option>
-                <option value="desc">Descendente</option>
-            </select>
-            <h4>Peso..</h4> 
-            <select onChange={(e) => handleSortWeight(e)}>
-                <option value="all">Seleccione una opcion</option>
-                <option value="asc">Peso Ascendente</option>
-                <option value="desc">Peso descendente</option>
-            </select>
+                <div className="search_home">
+                    <h4>Buscador</h4>
+                    <input type="text" placeholder="Buscar" onChange={(e) => setQuery(e.target.value)}/>
+                </div>
+            <div className="ordenABC_home">
+                <h4>Orden Alfabetico</h4>
+                    <select onChange={(e)=>handleSort(e)}>
+                        <option value="all">Seleccione una opcion</option>
+                        <option value="asc">Ascendente</option>
+                        <option value="desc">Descendente</option>
+                    </select>
+            </div>
+                <div className="orden_peso">
+                    <h4>Peso..</h4> 
+                    <select onChange={(e) => handleSortWeight(e)}>
+                        <option value="all">Seleccione una opcion</option>
+                        <option value="asc">Peso Ascendente</option>
+                        <option value="desc">Peso descendente</option>
+                    </select>
+                </div>
             </div>
             <div className="container">
             {
@@ -118,6 +119,12 @@ export default function Home (){
                 })
             }
             </div>
+            <Paginado dogsPorPage = {dogsPorPage}
+            allDogs = {query ? dataDogs.length : allDogs.length}
+            pagination = {pagination}
+            actualPage = {actualPage}
+            >
+            </Paginado>
         </div>
     )
 }

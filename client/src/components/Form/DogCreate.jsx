@@ -4,24 +4,89 @@ import { Link, useHistory } from "react-router-dom"
 import { createDog, getDogs, getTemperament } from "../../actions"
 import "../../style/Form.css"
 
+const expresiones = {
+    nombre: /^[A-Za-z\s]*$/,
+    numero: /^\d+$/,
+    URL : /^https?:\/\/.*\/.*\.(png|gif|webp|jpeg|jpg)\??.*$/gmi
+}
 
-const validation = (input, peso, alt, life) => {
+function validateNameUrlTemp(input){
     let errors = {}
     if(!input.name){
-        errors.name = "El campo Nombre es obligatorio, no puede contener numeros"
+        errors.name = "Campo Requerido"
+    }else if(!input.name.match(expresiones.nombre)){
+        errors.name = "Dato Incorrecto"
     }
-    if(!peso.pesoMin || !peso.pesoMax){
-        errors.weight = "El campo Peso es requerido, el valor minimo no puede ser mayor al valor maximo"
+
+    if(!input.image){
+        errors.image = "URL Requerida"
+    }else if(!input.image.match(expresiones.URL)){
+        errors.image = "Dato Incorrecto"
     }
-    if(!alt.altMin || !alt.altMax){
-        errors.height = "El campo Altura es requerido, el valor minimo no puede ser mayor al valor maximo"
+
+    return errors;
+}
+
+function validate(peso){
+    let errors = {}
+    let n;
+    if(!peso.pesoMin){
+        errors.pesoMin = "Campo Requerido"
     }
-    if(!life.lifeMin || !life.lifeMax){
-        errors.life = "El campo Vida es requerido, el valor minimo no puede ser mayor al valor maximo"
+    else if(!peso.pesoMin.match(expresiones.numero)){
+        errors.pesoMin = "Dato incorrecto"
+    }
+
+    if(!peso.pesoMax){
+        errors.pesoMax = "Campo Requerido"
+    }else if(peso.pesoMax <= peso.pesoMin){
+        errors.pesoMax = "El Peso Maximo NO puede ser MENOR o IGUAL al Peso Minimo"
+    }
+    else if(!peso.pesoMax.match(expresiones.numero)){
+        errors.pesoMax = "Dato Incorrecto"
     }
     return errors;
 }
 
+function validateAlt(alt){
+    let errors = {}
+    if(!alt.altMin){
+        errors.altMin = "Campo Requerido"
+    }
+    else if(!alt.altMin.match(expresiones.numero)){
+        errors.altMin = "Dato incorrecto"
+    }
+
+    if(!alt.altMax){
+        errors.altMax = "Campo Requerido"
+    }else if(alt.altMax <= alt.altMin){
+        errors.altMax = "La Altura Maxima NO puede ser MENOR o IGUAL a la Altura Minima"
+    }
+    else if(!alt.altMax.match(expresiones.numero)){
+        errors.altMax = "Dato Incorrecto"
+    }
+    return errors;
+}
+
+function validateLife(life){
+    let errors = {}
+    if(!life.lifeMin){
+        errors.lifeMin = "Campo Requerido"
+    }
+    else if(!life.lifeMin.match(expresiones.numero)){
+        errors.lifeMin = "Dato incorrecto"
+    }
+
+    if(!life.lifeMax){
+        errors.lifeMax = "Campo Requerido"
+    }else if(life.lifeMax <= life.lifeMin){
+        errors.lifeMax = "La Altura Maxima NO puede ser MENOR o IGUAL a la Altura Minima"
+    }
+    else if(!life.lifeMax.match(expresiones.numero)){
+        errors.lifeMax = "Dato incorrecto"
+    }
+    return errors
+}
 
 
 export default function DogCreate(){
@@ -30,27 +95,18 @@ export default function DogCreate(){
     const history = useHistory()
     const temperaments = useSelector((state) => state.temperaments)
 
-    const [button, setButton] = useState(false);
-    const [errors, setErrors] = useState({
-        name: "",
-        temperament : [],
-        image : "",
-        pesoMin: "",
-        pesoMax: "",
-        altMin: "",
-        altMax: "",
-        lifeMin: "",
-        lifeMax: ""
-    })
+    const [button, setButton] = useState(1)
+    const [btnCrear, setBtnCrear] = useState(1)
+
+    const[errosPeso, setErrorsPeso] = useState({})
+    const [errorsAlt, setErrorsAlt] = useState({})
+    const [errorsLife, setErrorsLife] = useState({})
+    const [errors, setErrors] = useState({})
 
     useEffect(()=>{
         dispatch(getTemperament())
     }, [])// eslint-disable-line react-hooks/exhaustive-deps
 
-    const expresiones = {
-        nombre: /^[a-zA-ZÁ-ÿ\s]{1,40}$/,
-        numero: /^[0-9]+$/
-    }
 
     const [peso, setPeso] = useState({
         pesoMin: "",
@@ -82,26 +138,82 @@ export default function DogCreate(){
                 ...peso,
                 [e.target.name] : e.target.value
             })
+            console.log(peso.pesoMax)
+            setErrorsPeso(validate({
+                ...peso,
+                [e.target.name] : e.target.value
+            }))
         }
         else if(e.target.name === "altMin" || e.target.name === "altMax"){
             setAlt({
                 ...alt,
                 [e.target.name] : e.target.value
             })
+            setErrorsAlt(validateAlt({
+                ...alt,
+                [e.target.name] : e.target.value
+            }))
         }
         else if(e.target.name === "lifeMin" || e.target.name === "lifeMax"){
             setLife({
                 ...life,
                 [e.target.name] : e.target.value
             })
+            setErrorsLife(validateLife({
+                ...life,
+                [e.target.name] : e.target.value
+            }))
         }
+        // if(!errosPeso.hasOwnProperty("pesoMax") || errosPeso.hasOwnProperty("pesoMin")){
+        //         console.log("Tenemos error: ")
+        //         setButton(1)
+        //     }else setButton(0)
+        
+        //console.log(Object.values(errosPeso))
     }
+
+    useEffect(()=>{
+        // if(Object.entries(errosPeso).length){
+        //     //console.log("SI")
+        //     setButton(1)
+        // }
+        // else if(Object.entries(errorsAlt).length){
+        //     setButton(1)
+        // }
+        // else if(Object.entries(errorsLife).length){
+        //     setButton(1)
+        // }
+        // else setButton(0)
+        if(Object.entries(errosPeso).length || Object.entries(errorsAlt).length || Object.entries(errorsLife).length){
+            setButton(1)
+        }
+        else setButton(0)
+
+        if(input.name.length > 0 && input.height.length > 0 && input.image.length > 0 && input.weight.length > 0 && input.temperament.length > 0){
+            setBtnCrear(0)
+        }else setBtnCrear(1)
+    },[errosPeso, alt, life, input,setButton, setBtnCrear])
+
+    //useEffect(()=>{
+        // if(input.name.length > 0 && input.height.length > 0 && input.image.length > 0 && input.weight.length > 0 && input.temperament.length > 0){
+        //     setBtnCrear(0)
+        // }else setBtnCrear(1)
+    //},[input, setBtnCrear])
+
+    //console.log((errosPeso.hasOwnProperty("pesoMax")))
+    //console.log("esto es btn: ", button)
+    //console.log(Object.entries(errosPeso))
 
     function handleChange(e){
         setInput({
             ...input,
             [e.target.name] : e.target.value
         })
+        setErrors(validateNameUrlTemp({
+            ...input,
+            [e.target.name] : e.target.value
+        }))
+        
     }
 
     function handleSelect(e){
@@ -146,13 +258,27 @@ export default function DogCreate(){
     }
     //console.log(input)
 
-    
-
     return(
         <div className="form_container">
             <Link to="/home">Volver...</Link>
-            <h1>Crea tu propia Raza de Perro</h1>
+            <h1 className="title_form">Crea tu propia Raza de Perro</h1>
+            <div className="form">
             <form onSubmit={handleSubmit} className="formulario">
+                
+            <div>
+                <label htmlFor="">Imagen URL: </label>
+                    <input 
+                    type="text" 
+                    value={input.image}
+                    name="image"
+                    onChange={ (e)=>handleChange(e)}
+                    />
+                    {
+                        errors.image && (
+                            <p>{errors.image}</p>
+                        )
+                    }
+                </div>
                 <div>
                     <label htmlFor="">Nombre: </label>
                     <input 
@@ -161,6 +287,11 @@ export default function DogCreate(){
                     name="name"
                     onChange={ (e)=>handleChange(e)}
                     />
+                    {
+                        errors.name &&(
+                            <p>{errors.name}</p>
+                        )
+                    }
                 </div>
                 <div>
                     <label htmlFor="">Weight Min: </label>
@@ -170,6 +301,11 @@ export default function DogCreate(){
                     name="pesoMin"
                     onChange={ (e)=>handleChangeAtributes(e)}
                     />
+                    {
+                        errosPeso.pesoMin && (
+                            <p>{errosPeso.pesoMin}</p>
+                        )
+                    }
                 </div>
                 <div>
                     <label htmlFor="">Weight Max: </label>
@@ -179,8 +315,12 @@ export default function DogCreate(){
                     name="pesoMax"
                     onChange={ (e)=>handleChangeAtributes(e)}
                     />
+                    {
+                        errosPeso.pesoMax && (
+                            <p>{errosPeso.pesoMax}</p>
+                        )
+                    }
                 </div>
-
                 <div>
                     <label htmlFor="">Height Min: </label>
                     <input 
@@ -189,6 +329,11 @@ export default function DogCreate(){
                     name="altMin"
                     onChange={ (e)=>handleChangeAtributes(e)}
                     />
+                    {
+                        errorsAlt.altMin && (
+                            <p>{errorsAlt.altMin}</p>
+                        )
+                    }
                 </div>
                 <div>
                     <label htmlFor="">Height Max: </label>
@@ -198,6 +343,11 @@ export default function DogCreate(){
                     name="altMax"
                     onChange={ (e)=>handleChangeAtributes(e)}
                     />
+                    {
+                        errorsAlt.altMax && (
+                            <p>{errorsAlt.altMax}</p>
+                        )
+                    }
                 </div>
                 <div>
                     <label htmlFor="">Life Min: </label>
@@ -207,6 +357,11 @@ export default function DogCreate(){
                     name="lifeMin"
                     onChange={ (e)=>handleChangeAtributes(e)}
                     />
+                    {
+                       errorsLife.lifeMin && (
+                        <p>{errorsLife.lifeMin}</p>
+                       ) 
+                    }
                 </div>
                 <div>
                     <label htmlFor="">Life Max: </label>
@@ -216,16 +371,11 @@ export default function DogCreate(){
                     name="lifeMax"
                     onChange={ (e)=>handleChangeAtributes(e)}
                     />
-                </div>
-                <button onClick={(e => handleCargar(e))}>Cargar</button>
-                <div>
-                    <label htmlFor="">Imagen URL: </label>
-                    <input 
-                    type="text" 
-                    value={input.image}
-                    name="image"
-                    onChange={ (e)=>handleChange(e)}
-                    />
+                    {
+                       errorsLife.lifeMax && (
+                        <p>{errorsLife.lifeMax}</p>
+                       ) 
+                    }
                 </div>
                 <div>
                     <label htmlFor="">Temperamentos: </label>
@@ -239,21 +389,66 @@ export default function DogCreate(){
                             })
                         }
                     </select>
-                    
                 </div>
-                <button type="submit" >Crear Raza</button>
+                
+                
+                <button onClick={(e => handleCargar(e))} disabled={button}>Cargar Datos</button>
+                <br />
+                <button type="submit" disabled={btnCrear}>Crear Raza</button>
             </form>
-            {
-                input.temperament.map(t =>{
-                    return(
-                        <div>
-                            <p>{t}</p>
-                            <button onClick={()=> handleDelete(t)}>X</button>
+            </div>
+            <div className="vista_previa">
+                <div className="vista_card">
+                {
+                    input.image && (
+                        <div className="vista_img">
+                            <img src={input.image} alt="img" />
                         </div>
                     )
-                })
-            }
+                }
+                {
+                    input.name && (
+                        <div className="vista_name vista">
+                            <h1> Nombre de Raza : {input.name}</h1>
+                        </div>
+                    )
+                }
+                {
+                    input.weight && (
+                        <div className="vista_peso">
+                            <h4> Peso: {input.weight}</h4>
+                        </div>
+                    )
+                }
+                {
+                    input.height && (
+                        <div className="vista_alt">
+                            <h4> Altura : {input.height}</h4>
+                        </div>
+                    )
+                }
+                {
+                    input.life && (
+                        <div className="vista_life">
+                            <h4> Vida : {input.life}</h4>
+                        </div>
+                    )
+                }
+                <div className="temp_class">
+                {
+                    input.temperament && input.temperament.map(t =>{
+                        return(
+                            <div className="list_temp">
+                                <p>{t}</p>
+                                <button onClick={()=> handleDelete(t)}>X</button>
+                            </div>
+                        )
+                    })
+                }
+                </div>
+                </div>
+            </div>            
         </div>
+        
     )
-
 }

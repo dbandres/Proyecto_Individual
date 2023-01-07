@@ -1,10 +1,14 @@
 
 .card_dog{
     border-radius: 10%;
-    background-color: yellow;
+    background-color: #d9b48d;
     width: 300px;
     height: 330px;
     margin: 1rem;
+}
+
+.card_dog:hover{
+    box-shadow: 10px 9px 9px 6px #979797;
 }
 
 .card_img img{
@@ -16,6 +20,6 @@
 }
 
 .card_contain{
-    color: black;
+    color: #6c6c6c;
     text-align: center;
 }

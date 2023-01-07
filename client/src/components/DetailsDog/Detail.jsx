@@ -20,12 +20,18 @@ export default function Detail(props){
             {
                 details.length >0 ?
                 <div key={details[0].id} className="div_detail">
-                    <img src={details[0].image} alt="img" />
-                    <h1> Raza : {details[0].name}</h1>
-                    <h3> Temperamentos :  {details[0].temperament}</h3>
-                    <p> Altura :  {details[0].height}</p>
-                    <p> Peso :  {details[0].weight}</p>
-                    <p> Vida : {details[0].life_span ? details[0].life_span : details[0].life}</p>
+                    <div className="detail_name">
+                        <img src={details[0].image} alt="img" />
+                        <h1> Raza : {details[0].name}</h1>
+                    </div>
+                    <div className="detail_temp">
+                        <h3> Temperamentos :  {details[0].temperament}</h3>
+                    </div>
+                    <div className="detail_dog">
+                        <p> Altura :  {details[0].height}</p>
+                        <p> Peso :  {details[0].weight}</p>
+                        <p> Vida : {details[0].life_span ? details[0].life_span : details[0].life}</p>
+                    </div>
                 </div> : 
                 <p>Loading .... </p>
             }
