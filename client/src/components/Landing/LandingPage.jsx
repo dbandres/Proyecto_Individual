@@ -6,17 +6,17 @@ import img from "../../style/assets/dog.png"
 import { useEffect } from "react";
 
 export default function LandingPage(){
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
-    const allDogs = useSelector((state) => state.dogs);
-    const allTemp = useSelector((state)=> state.temperaments)
+    // const allDogs = useSelector((state) => state.dogs);
+    // const allTemp = useSelector((state)=> state.temperaments)
 
-    useEffect(()=>{
-        if(!allDogs.length && !allTemp.length){
-            dispatch(getDogs())
-            dispatch(getTemperament())
-        }
-    },[])// eslint-disable-line react-hooks/exhaustive-deps
+    // useEffect(()=>{
+    //     if(!allDogs.length && !allTemp.length){
+    //         dispatch(getDogs())
+    //         dispatch(getTemperament())
+    //     }
+    // },[])// eslint-disable-line react-hooks/exhaustive-deps
     
 
     return(

@@ -260,26 +260,24 @@ export default function DogCreate(){
 
     return(
         <div className="form_container">
-            <Link to="/home">Volver...</Link>
-            <h1 className="title_form">Crea tu propia Raza de Perro</h1>
             <div className="form">
             <form onSubmit={handleSubmit} className="formulario">
-                
-            <div>
-                <label htmlFor="">Imagen URL: </label>
-                    <input 
-                    type="text" 
-                    value={input.image}
-                    name="image"
-                    onChange={ (e)=>handleChange(e)}
-                    />
-                    {
-                        errors.image && (
-                            <p>{errors.image}</p>
-                        )
-                    }
+            <h1 className="title_form">Crea tu propia Raza de Perro</h1>
+                <div className="input_img input">
+                    <label htmlFor="">Imagen URL: </label>
+                        <input 
+                        type="text" 
+                        value={input.image}
+                        name="image"
+                        onChange={ (e)=>handleChange(e)}
+                        />
+                        {
+                            errors.image && (
+                                <p>{errors.image}</p>
+                            )
+                        }
                 </div>
-                <div>
+                <div className="input_name input">
                     <label htmlFor="">Nombre: </label>
                     <input 
                     type="text" 
@@ -293,7 +291,7 @@ export default function DogCreate(){
                         )
                     }
                 </div>
-                <div>
+                <div className="input_Wm input">
                     <label htmlFor="">Weight Min: </label>
                     <input 
                     type="text" 
@@ -307,7 +305,7 @@ export default function DogCreate(){
                         )
                     }
                 </div>
-                <div>
+                <div className="input_Wm input">
                     <label htmlFor="">Weight Max: </label>
                     <input 
                     type="text" 
@@ -321,7 +319,7 @@ export default function DogCreate(){
                         )
                     }
                 </div>
-                <div>
+                <div className="input_Hmin input">
                     <label htmlFor="">Height Min: </label>
                     <input 
                     type="text" 
@@ -335,7 +333,7 @@ export default function DogCreate(){
                         )
                     }
                 </div>
-                <div>
+                <div className="input_Hmax input">
                     <label htmlFor="">Height Max: </label>
                     <input 
                     type="text" 
@@ -349,7 +347,7 @@ export default function DogCreate(){
                         )
                     }
                 </div>
-                <div>
+                <div className="input_Lmin input">
                     <label htmlFor="">Life Min: </label>
                     <input 
                     type="text" 
@@ -363,7 +361,7 @@ export default function DogCreate(){
                        ) 
                     }
                 </div>
-                <div>
+                <div className="input_Lmax input">
                     <label htmlFor="">Life Max: </label>
                     <input 
                     type="text" 
@@ -377,7 +375,7 @@ export default function DogCreate(){
                        ) 
                     }
                 </div>
-                <div>
+                <div className="input_temp ">
                     <label htmlFor="">Temperamentos: </label>
                     <select onChange={(e)=>handleSelect(e)}>
                         <option value="">Seleccione una opcion</option>
@@ -392,9 +390,9 @@ export default function DogCreate(){
                 </div>
                 
                 
-                <button onClick={(e => handleCargar(e))} disabled={button}>Cargar Datos</button>
+                <button onClick={(e => handleCargar(e))} disabled={button} className="btn_formVolver">Cargar Datos</button>
                 <br />
-                <button type="submit" disabled={btnCrear}>Crear Raza</button>
+                <button type="submit" disabled={btnCrear} className="btn_formVolver">Crear Raza</button>
             </form>
             </div>
             <div className="vista_previa">
@@ -447,7 +445,8 @@ export default function DogCreate(){
                 }
                 </div>
                 </div>
-            </div>            
+            </div> 
+            <button className="btn_formVolver volver"><Link to="/home">Volver...</Link></button>           
         </div>
         
     )

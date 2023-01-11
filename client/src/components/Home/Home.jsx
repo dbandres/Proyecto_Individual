@@ -8,6 +8,7 @@ import Card from "../Card/Card";
 import Paginado from "../Paginado/Paginado";
 import NavBar from "../NavBar/Nav";
 import axios from "axios";
+import NotFound from "../notFound/notFound";
 
 
 export default function Home (){
@@ -108,14 +109,15 @@ export default function Home (){
                         </Link>
                     
                 )
-                }):
-                dogsActual && dogsActual.map((dog)=>{
+                }): 
+                dogsActual.length === 0 || dogsName.length === 0? <NotFound></NotFound> 
+                : dogsActual.map((dog)=>{
                     return(
                         <Link to={"/dog-detail/"+dog.id}>
                             <Card name={dog.name} image={dog.image} temperament={dog.temperament} weight={dog.weight} key={dog.id}></Card>
                         </Link>
                         
-                    )
+                    )                
                 })
             }
             </div>

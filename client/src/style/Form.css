@@ -5,6 +5,24 @@
     grid-template-columns: repeat(2, 1fr);
 }
 
+.h1_form{
+    height: 50px;
+}
+
+.btn_formVolver{
+    width: 150px;
+}
+
+.volver{
+    margin-top: 3rem;
+    margin-left: 3rem;
+}
+
+.form{
+    margin-top: 6rem;
+    margin-left: 3rem;
+}
+
 .formulario{
     line-height: 2.5rem;
     
@@ -22,17 +40,33 @@
     font-weight: bold;
 }
 
+.list_temp button{
+    border-radius: 50%;
+    border-color: #d9b48d;
+    width: 18px;
+    height: 18px;
+    margin-top: .2rem;
+    margin-left: .3rem;
+    cursor: pointer;
+}
+
+.list_temp button:hover{
+    background-color: black;
+    color: red;
+}
+
 .title_form{
     justify-content: center;
     margin: 1rem 
 }
 
 .vista_previa{
-    background-color: yellow;
+    background-color: #d9b48d;
     width: 400px;
     height: 400px;
     border-radius: 10%;
-    
+    margin-top: 11rem;
+    margin-left: 5rem;
 }
 
 .vista_name{
@@ -67,3 +101,16 @@
     border-radius: 50%;
 }
 
+.input{
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+}
+
+.input p{
+    width: 450px;
+    font-weight: lighter;
+    margin-top: -.5rem;
+    color: red;
+    line-height: 2.5;
+}

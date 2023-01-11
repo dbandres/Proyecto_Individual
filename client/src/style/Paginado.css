@@ -23,8 +23,8 @@
 .pag_ul{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-    margin: 0.5rem;
+    justify-content: center;
+    margin: .5rem;
 }
 
 .li_pag {
