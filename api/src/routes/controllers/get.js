@@ -18,7 +18,6 @@ const getApiDogs = async () =>{
     });
     //const sliceResponse = UrlResponse.slice(0,8)
     //let finalResponse = Array.from(new Set(UrlResponse))
-    
     return UrlResponse;
 }
 
@@ -40,8 +39,7 @@ const getDbInfo = async () =>{
             life: d.life,
             temperament: d.temperaments.map(t => t.name).join(", "),
             image: d.image
-    }))
-    
+    }))    
 }
 
 const getAllDogs = async () =>{
