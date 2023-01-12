@@ -16,8 +16,6 @@ const getApiDogs = async () =>{
             image: dog.image.url
         }
     });
-    //const sliceResponse = UrlResponse.slice(0,8)
-    //let finalResponse = Array.from(new Set(UrlResponse))
     return UrlResponse;
 }
 

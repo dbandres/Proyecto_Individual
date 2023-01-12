@@ -17,37 +17,13 @@ router.get("/", async (req, res, next) =>{
                 )
             }
             res.json(search(nameDog))
-            // let namedoguii = await axios.get(`https://api.thedogapi.com/v1/breeds/search?q=${name}`)
-            // res.send(namedoguii)
-            // let dogByName = await nameDog.filter(dog => dog.name.toLowerCase().includes(name.toLowerCase()))
-            // console.log(dogByName)
-            // dogByName.length ? res.send(dogByName) : res.status(404).send("Error, Name no existe")
-            
         }else{
-        
-        //let dogsTotal = await getAllDogs()
         res.status(200).send(nameDog)
         }
     } catch (error) {
         next(error)
     }
 })
-
-/*
-router.get('/', async (req, res, next) =>{
-    let tempUrl = await axios.get('https://api.thedogapi.com/v1/breeds')
-    let temperaments = []
-    tempUrl.data.forEach(e => {
-        if (e.temperament) temperaments = [...temperaments, ...e.temperament.split(', ')]
-    })
-    let arrayTemperaments = temperaments.filter((item,index)=>{
-        return temperaments.indexOf(item) === index;
-      })
-    arrayTemperaments.forEach(t => {
-        Temperament.findOrCreate
-*/
-
-
 
 router.get("/temperaments", async (req, res, next)=>{
     try {
@@ -63,7 +39,7 @@ router.get("/temperaments", async (req, res, next)=>{
             })
         });
         const allTemperaments = await Temperament.findAll()
-        res.send(allTemperaments)
+        res.status(200).send(allTemperaments)
     } catch (error) {
         next(error)
     }
@@ -100,12 +76,25 @@ router.post("/", async (req, res, next)=>{
         })
 
         newDog.addTemperament(temperamentDb)
-        res.send(newDog)
+        res.status(200).send(newDog)
     } catch (error) {
         next(error)
     }
 })
 
+router.delete("/:id", async (req, res, next)=>{
+    const {id} = req.params
+    try {
+        await Dog.destroy({
+            where:{
+                id
+            }
+        })
+    res.status(200).send(`La raza con el id ${id} fue eliminada con exito`)
+    } catch (error) {
+        next(error)
+    }
+}) 
 
 module.exports = router;
 
