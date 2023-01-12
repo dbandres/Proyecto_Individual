@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { Link, useHistory } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { createDog, getDogs, getTemperament } from "../../actions"
 import "../../style/Form.css"
 
@@ -92,7 +92,6 @@ function validateLife(life){
 export default function DogCreate(){
     
     const dispatch = useDispatch()
-    const history = useHistory()
     const temperaments = useSelector((state) => state.temperaments)
 
     const [button, setButton] = useState(1)
@@ -164,26 +163,9 @@ export default function DogCreate(){
                 [e.target.name] : e.target.value
             }))
         }
-        // if(!errosPeso.hasOwnProperty("pesoMax") || errosPeso.hasOwnProperty("pesoMin")){
-        //         console.log("Tenemos error: ")
-        //         setButton(1)
-        //     }else setButton(0)
-        
-        //console.log(Object.values(errosPeso))
     }
 
     useEffect(()=>{
-        // if(Object.entries(errosPeso).length){
-        //     //console.log("SI")
-        //     setButton(1)
-        // }
-        // else if(Object.entries(errorsAlt).length){
-        //     setButton(1)
-        // }
-        // else if(Object.entries(errorsLife).length){
-        //     setButton(1)
-        // }
-        // else setButton(0)
         if(Object.entries(errosPeso).length || Object.entries(errorsAlt).length || Object.entries(errorsLife).length){
             setButton(1)
         }
@@ -193,16 +175,6 @@ export default function DogCreate(){
             setBtnCrear(0)
         }else setBtnCrear(1)
     },[errosPeso, alt, life, input,setButton, setBtnCrear])
-
-    //useEffect(()=>{
-        // if(input.name.length > 0 && input.height.length > 0 && input.image.length > 0 && input.weight.length > 0 && input.temperament.length > 0){
-        //     setBtnCrear(0)
-        // }else setBtnCrear(1)
-    //},[input, setBtnCrear])
-
-    //console.log((errosPeso.hasOwnProperty("pesoMax")))
-    //console.log("esto es btn: ", button)
-    //console.log(Object.entries(errosPeso))
 
     function handleChange(e){
         setInput({
@@ -254,7 +226,7 @@ export default function DogCreate(){
             image : ""
         })
         dispatch(getDogs())
-        history.push("/home")
+        //history.push("/home")
     }
     //console.log(input)
 

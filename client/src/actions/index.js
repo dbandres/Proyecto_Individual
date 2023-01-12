@@ -7,6 +7,7 @@ export const FILTER_BY_TEMP = "FILTER_BY_TEMP"
 export const ORDER_BY_WHEIGHT = "ORDER_BY_WHEIGHT"
 export const POST_CREATE = "POST_CREATE"
 export const GET_DETAILS = "GET_DETAILS"
+export const DELETE_DOGS_DB = "DELETE_DOGS_DB"
 
 export function getDogs(){
     return async function (dispatch){
@@ -67,6 +68,16 @@ export function dogDetail(id){
         let res = await axios.get(`http://localhost:3001/dogs/`+ id)
         return dispatch({
             type: GET_DETAILS,
+            payload: res.data
+        })
+    }
+}
+
+export function deleteDogDb(id){
+    return async function(dispatch){
+        const res = axios.delete(`http://localhost:3001/dogs/`+ id)
+        return dispatch({
+            type: DELETE_DOGS_DB,
             payload: res.data
         })
     }

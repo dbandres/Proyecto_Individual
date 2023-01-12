@@ -1,4 +1,4 @@
-import { GET_DOGS, FILTER_CREATE, GET_TEMPERAMENT, ORDER_BY_NAME, FILTER_BY_TEMP, ORDER_BY_WHEIGHT, POST_CREATE, GET_DETAILS } from "../actions";
+import { GET_DOGS, FILTER_CREATE, GET_TEMPERAMENT, ORDER_BY_NAME, FILTER_BY_TEMP, ORDER_BY_WHEIGHT, POST_CREATE, GET_DETAILS, DELETE_DOGS_DB } from "../actions";
 
 const initialState = {
     dogs : [],
@@ -94,6 +94,11 @@ function rootReducer( state = initialState, action){
             return{
                 ...state,
                 details: action.payload
+            }
+        case DELETE_DOGS_DB:
+            return{
+                ...state,
+                dogs: state.dogs
             }
             default:
                 return state;

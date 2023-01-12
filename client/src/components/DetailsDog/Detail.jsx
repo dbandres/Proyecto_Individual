@@ -1,17 +1,25 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import { dogDetail } from "../../actions";
+import { dogDetail, deleteDogDb } from "../../actions";
 import "../../style/Detail.css"
+import NotFound from "../notFound/notFound";
 
 
 export default function Detail(props){
     console.log(props)
-    const dispatch = useDispatch() 
+    const dispatch = useDispatch()
+    const {id} = useParams()
+    const [removed, setRemoved] = useState(false)
 
     useEffect(()=>{
-        dispatch(dogDetail(props.match.params.id))
-    },[dispatch])
+        dispatch(dogDetail(id))
+    },[id, dispatch])
+
+    function handleDelete(){
+        dispatch(deleteDogDb(id))
+        setRemoved(true)
+    }
 
     const details = useSelector((state)=> state.details)
 
@@ -33,8 +41,20 @@ export default function Detail(props){
                         <p> Vida : {details[0].life_span ? details[0].life_span : details[0].life}</p>
                     </div>
                 </div> : 
-                <p>Loading .... </p>
+                <NotFound></NotFound>
             }
+            <div>
+                {
+                    id.length > 3 &&
+                    <button onClick={handleDelete}>Eliminar Raza</button>
+                }
+                {
+                    removed&&
+                    <div>
+                        <h1>La Raza fue eliminada de la Base de Datos</h1>
+                    </div>
+                }
+            </div>
             <Link to="/home">VOLVER..</Link>
         </div>
     )

@@ -25,11 +25,6 @@ export default function Home (){
         }
     },[])// eslint-disable-line react-hooks/exhaustive-deps
 
-
-    // let sinTemp = allDogs.filter(dog => dog.temperament)
-    // console.log(sinTemp.length)
-    // console.log(allDogs.length)
-
     const [orden, setOrden] = useState("")
     const [query, setQuery] = useState("")
     const [dataDogs, setDataDogs] = useState([])
@@ -107,7 +102,6 @@ export default function Home (){
                         <Link to={"/dog-detail/"+dog.id}>
                             <Card name={dog.name} image={dog.image} temperament={dog.temperament} weight={dog.weight} key={dog.id}></Card>
                         </Link>
-                    
                 )
                 }): 
                 dogsActual.length === 0 || dogsName.length === 0? <NotFound></NotFound> 
