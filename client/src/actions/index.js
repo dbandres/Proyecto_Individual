@@ -11,7 +11,7 @@ export const DELETE_DOGS_DB = "DELETE_DOGS_DB"
 
 export function getDogs(){
     return async function (dispatch){
-        let response = await axios.get("http://localhost:3001/dogs");
+        let response = await axios.get("dogs");
         return dispatch({
             type: GET_DOGS,
             payload: response.data
@@ -27,7 +27,7 @@ export function filterCreated(payload){
 
 export function getTemperament(){
     return async function (dispatch){
-        let respuestaTemp = await axios.get("http://localhost:3001/dogs/temperaments")
+        let respuestaTemp = await axios.get("dogs/temperaments")
             return dispatch({ 
                 type: GET_TEMPERAMENT,
                 payload: respuestaTemp.data
@@ -58,14 +58,14 @@ export function oderByWeight(payload){
 
 export function createDog(payload){
     return async function(){
-        const res = await axios.post("http://localhost:3001/dogs", payload)
+        const res = await axios.post("dogs", payload)
         return res
     }
 }
 
 export function dogDetail(id){
     return async function(dispatch){
-        let res = await axios.get(`http://localhost:3001/dogs/`+ id)
+        let res = await axios.get("dogs/" + id)
         return dispatch({
             type: GET_DETAILS,
             payload: res.data

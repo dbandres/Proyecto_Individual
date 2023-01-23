@@ -54,7 +54,7 @@ export default function Home (){
 
     useEffect(()=>{
         const fetchDogs = async() =>{
-            const res = await axios.get(`http://localhost:3001/dogs?name=${query}`)
+            const res = await axios.get(`/dogs?name=${query}`)
             setDataDogs(res.data)
         }
         fetchDogs()
